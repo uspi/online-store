@@ -19,7 +19,16 @@ export class Cart {
 
   updateQuantity(product: Product, quantity: number) {
     let line = this.lines.find(line => line.product?.id == product?.id);
-    if (line) {
+
+    // if the product doesn't exist
+    if (!line) {
+      return;
+    }
+
+    // negative numbers are prohibited
+    if (quantity <= 0) {
+      line.quantity = 1;
+     } else {
       line.quantity = Number(quantity);
     }
     this.recalculate();
