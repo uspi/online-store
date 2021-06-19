@@ -30,11 +30,17 @@ export class Cart {
       line.quantity = 1;
      } else {
       line.quantity = Number(quantity);
-    }
+     }
+
     this.recalculate();
   }
 
-  removeLine(id: number) {
+  removeLine(id: number | undefined) {
+    // if undefined
+    if (!id) {
+      return
+    }
+
     let index = this.lines.findIndex(line => line.product?.id == id);
     this.lines.splice(index, 1);
     this.recalculate();
